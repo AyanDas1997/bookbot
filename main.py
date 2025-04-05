@@ -1,8 +1,12 @@
+import sys
+
 from stats import count_words
 
 def main():
-    book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
+    if len(sys.argv)!= 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    text = get_book_text(sys.argv[1])
     count = count_words(text)
     char_dict = char_count(text)
     sorted_list = sorted_char(char_dict)
@@ -30,11 +34,11 @@ def sorted_char(char_dict):
 
 
 def report(count, sorted_list):
-    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"--- Begin report of {sys.argv[1]} ---")
     print(f"{count} words found in the document/n")
     for item in sorted_list:
         if item['char'].isalpha() == True:
-            print(f"The '{item['char']}' character was found {item['count']} times")
+            print(f"{item['char']}: {item['count']}")
     print("--- End report ---")
 
 
